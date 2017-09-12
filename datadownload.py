@@ -43,6 +43,7 @@ def main():
     # should actually remove any where the length of the row is less than 22 perhaps
     df = df[pd.notnull(df['id'])]
     df = df[pd.notnull(df['fullimgurl'])]
+    df['description'] = df['description'].str.replace(",", "\\,")
 
     print("Dimensions after cleanup :"+str(df.shape))
 
