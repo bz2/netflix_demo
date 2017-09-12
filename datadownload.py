@@ -26,7 +26,7 @@ def main():
     parser = argparse.ArgumentParser(description="This is a script that downloads a TSV from a URL and then gets a list of URLS and downloads the images associated with them from the  url_column");
     parser.add_argument('-i','--input_url', help='Input file url (should be a TSV)',required=True)
     parser.add_argument('-o','--output_file', help='Zegami TSV filename',required=False)
-    parser.add_argument('-d','--output_dir', help='Directory that contains all the images.',required=False)
+    parser.add_argument('-d','--output_dir', help='Directory that contains all the images.',required=False, default=".")
     parser.add_argument('-c','--column_url_name', help='Name of the column that contains the list of urls to be downloaded.',required=False)
     args = parser.parse_args()
 
@@ -60,8 +60,8 @@ def main():
         
         # append to the list
         image_file_list.append(image_file_name)
-        
-        if (os.path.isfile(image_file_name) == False):
+        image_file_full_path = args.output_dir + '/' + image_file_name
+        if (os.path.isfile(image_file_full_path) == False):
             urlretrieve(image_url,image_file_name)
             print("Retrieving "+image_file_name+"...")
             count_downloaded = count_downloaded + 1
